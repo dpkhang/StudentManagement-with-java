@@ -13,7 +13,7 @@ import javax.swing.JOptionPane;
  */
 public class MainForm extends javax.swing.JFrame {
 
-    private String[] user = new String[4];
+    private String[] user = new String[5];
     /**
      * Creates new form MainForm
      */
@@ -29,7 +29,11 @@ public class MainForm extends javax.swing.JFrame {
         this.txtName.setText(user[1]);
         this.txtEmail.setText(user[2]);
         this.txtPhone.setText(user[3]);
-
+        if(Integer.parseInt(user[4]) == 1)
+            this.radMale.setSelected(true);
+        else {
+            this.radFemale.setSelected(true);
+        }
     }
 
     /**
@@ -56,13 +60,14 @@ public class MainForm extends javax.swing.JFrame {
         btnCancel = new javax.swing.JButton();
         txtName = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
+        radMale = new javax.swing.JRadioButton();
+        radFemale = new javax.swing.JRadioButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu4 = new javax.swing.JMenu();
         menuStudent = new javax.swing.JMenuItem();
         menuCourse = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
         menuUpdCourse = new javax.swing.JMenuItem();
         menuScore = new javax.swing.JMenuItem();
 
@@ -73,16 +78,16 @@ public class MainForm extends javax.swing.JFrame {
         jLabel1.setText("Thông tin Đăng nhập");
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
-        jLabel2.setText("Tên đăng nhập");
+        jLabel2.setText("Tên đăng nhập:");
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
-        jLabel3.setText("Họ tên");
+        jLabel3.setText("Họ tên:");
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
-        jLabel6.setText("Email");
+        jLabel6.setText("Email:");
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
-        jLabel7.setText("Số điện thoại");
+        jLabel7.setText("Số điện thoại:");
 
         btnLogout.setBackground(new java.awt.Color(255, 0, 51));
         btnLogout.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
@@ -153,13 +158,13 @@ public class MainForm extends javax.swing.JFrame {
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Giới tính", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 15))); // NOI18N
         jPanel1.setForeground(new java.awt.Color(204, 204, 204));
 
-        btngrGender.add(jRadioButton1);
-        jRadioButton1.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
-        jRadioButton1.setText("Nam");
+        btngrGender.add(radMale);
+        radMale.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        radMale.setText("Nam");
 
-        btngrGender.add(jRadioButton2);
-        jRadioButton2.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
-        jRadioButton2.setText("Nữ");
+        btngrGender.add(radFemale);
+        radFemale.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        radFemale.setText("Nữ");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -167,9 +172,9 @@ public class MainForm extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(64, 64, 64)
-                .addComponent(jRadioButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(radMale, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jRadioButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(radFemale, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(40, 40, 40))
         );
         jPanel1Layout.setVerticalGroup(
@@ -177,8 +182,8 @@ public class MainForm extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jRadioButton1)
-                    .addComponent(jRadioButton2))
+                    .addComponent(radMale)
+                    .addComponent(radFemale))
                 .addContainerGap(28, Short.MAX_VALUE))
         );
 
@@ -204,6 +209,14 @@ public class MainForm extends javax.swing.JFrame {
 
         jMenu1.setText("Quản lý cập nhật");
 
+        jMenuItem1.setText("Cập nhật sinh viên");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem1);
+
         menuUpdCourse.setText("Cập nhật học phần");
         menuUpdCourse.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -212,7 +225,12 @@ public class MainForm extends javax.swing.JFrame {
         });
         jMenu1.add(menuUpdCourse);
 
-        menuScore.setText("Điểm học phần");
+        menuScore.setText("Cập nhật điểm");
+        menuScore.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuScoreActionPerformed(evt);
+            }
+        });
         jMenu1.add(menuScore);
 
         jMenuBar1.add(jMenu1);
@@ -246,7 +264,7 @@ public class MainForm extends javax.swing.JFrame {
                     .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(37, Short.MAX_VALUE))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -310,8 +328,8 @@ public class MainForm extends javax.swing.JFrame {
 
     private void menuUpdCourseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuUpdCourseActionPerformed
         // TODO add your handling code here:
-        UpdateCourseForm ucf = new UpdateCourseForm(this.user);
-        ucf.setVisible(true);
+        UpdateCourseForm uc = new UpdateCourseForm(this.user);
+        uc.setVisible(true);
     }//GEN-LAST:event_menuUpdCourseActionPerformed
 
     private void txtEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEmailActionPerformed
@@ -329,29 +347,17 @@ public class MainForm extends javax.swing.JFrame {
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         // TODO add your handling code here:
-//        DataModel md = new DataModel();
-//        String maMon = "";
-//        for(String[] value : this.courses) {
-//            if(value[1].equals(this.cboCourses.getSelectedItem().toString()))
-//            maMon = value[0];
-//        }
-//        int result = md.updateCourse(maMon, this.user[0]);
-//        if(result == 1) {
-//            ArrayList<String[]> coursesOfUser = md.getCouresOfUser(this.user[0]);
-//            DefaultTableModel table = (DefaultTableModel) this.tblCourses.getModel();
-//            while(table.getRowCount() > 0) {
-//                table.removeRow(0);
-//            }
-//            for(String[] value : coursesOfUser) {
-//                table.addRow(new Object[]{
-//                    value[0], value[1], value[2]
-//                });
-//            }
-//            JOptionPane.showMessageDialog(rootPane, "Thêm thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
-//        }else {
-//            JOptionPane.showMessageDialog(rootPane, "Thêm thất bại!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
-//        }
         stateOfEnabled(false);
+        DataModel md = new DataModel();
+        String gioitinh = "0";
+        if(this.radMale.isSelected()) {
+            gioitinh = "1";
+        }
+        int result = md.updateUser(this.txtName.getText(), this.txtEmail.getText(), this.txtPhone.getText(), gioitinh, this.txtUsername.getText());
+        if(result == 1) {
+            JOptionPane.showMessageDialog(rootPane, "Cập nhật thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+        }else 
+            JOptionPane.showMessageDialog(rootPane, "Cập nhật thất bại!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
@@ -359,11 +365,23 @@ public class MainForm extends javax.swing.JFrame {
         stateOfEnabled(false);
     }//GEN-LAST:event_btnCancelActionPerformed
 
+    private void menuScoreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuScoreActionPerformed
+        // TODO add your handling code here:
+        UpdateScore us = new UpdateScore(this.user);
+        us.setVisible(true);
+    }//GEN-LAST:event_menuScoreActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        // TODO add your handling code here:
+        UpdateStudents ut = new UpdateStudents(this.user);
+        ut.setVisible(true);
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
     private void stateOfEnabled(boolean bool) {
         this.txtEmail.setEditable(bool);
         this.txtName.setEditable(bool);
         this.txtPhone.setEditable(bool);
-        this.txtUsername.setEditable(bool);
+        this.txtUsername.setEditable(false);
         this.btnSave.setEnabled(bool);
         this.btnCancel.setEnabled(bool);
         this.btnUpd.setEnabled(!bool);
@@ -417,13 +435,14 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JMenuItem menuCourse;
     private javax.swing.JMenuItem menuScore;
     private javax.swing.JMenuItem menuStudent;
     private javax.swing.JMenuItem menuUpdCourse;
+    private javax.swing.JRadioButton radFemale;
+    private javax.swing.JRadioButton radMale;
     private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtName;
     private javax.swing.JTextField txtPhone;

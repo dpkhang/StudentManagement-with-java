@@ -14,7 +14,7 @@ import javax.swing.table.DefaultTableModel;
  * @author khang
  */
 public class UpdateCourseForm extends javax.swing.JFrame {
-    String[] user = new String[4];
+    String[] user = new String[5];
     ArrayList<String[]> courses = new ArrayList<>();
     /**
      * Creates new form UpdateCourseForm
@@ -84,7 +84,7 @@ public class UpdateCourseForm extends javax.swing.JFrame {
         });
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
-        jLabel2.setText("Tên Học Phần");
+        jLabel2.setText("Tên học phần:");
 
         cboCourses.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
 

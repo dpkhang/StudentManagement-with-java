@@ -16,7 +16,7 @@ import javax.swing.table.TableModel;
  * @author khang
  */
 public class StudentForm extends javax.swing.JFrame {
-    private String[] user = new String[4];
+    private String[] user = new String[5];
     /**
      * Creates new form StudentForm
      */
@@ -83,8 +83,8 @@ public class StudentForm extends javax.swing.JFrame {
             }
         });
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel2.setText("Học phần");
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        jLabel2.setText("Tên học phần:");
 
         cboCourse.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         cboCourse.addItemListener(new java.awt.event.ItemListener() {

@@ -5,17 +5,36 @@
  */
 package StudentManagement;
 
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author khang
  */
 public class UpdateScore extends javax.swing.JFrame {
-
+    String[] user = new String[5];
+    ArrayList<String[]> courses = new ArrayList<>();
     /**
      * Creates new form UpdateScore
      */
     public UpdateScore() {
         initComponents();
+         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+    }
+    
+    public UpdateScore(String[] user) {
+        this.user = user;
+        initComponents();
+        stateOfEnabled(false);
+        DataModel md = new DataModel();
+        this.courses = md.getCouresOfUser(this.user[0]);
+        for(int i = 0 ; i <courses.size(); i++) {
+            this.cboCourses.addItem(courses.get(i)[1]);
+        }
+         
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
     }
 
     /**
@@ -27,30 +46,23 @@ public class UpdateScore extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btnDel = new javax.swing.JButton();
         btnSave = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblCourses = new javax.swing.JTable();
+        tblStudent = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         btnExit = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         cboCourses = new javax.swing.JComboBox<>();
         btnCancel = new javax.swing.JButton();
         btnUpd = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        txtName = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        txtCode = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        txtScore = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        btnDel.setBackground(new java.awt.Color(0, 0, 255));
-        btnDel.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
-        btnDel.setForeground(new java.awt.Color(255, 255, 255));
-        btnDel.setText("Xóa");
-        btnDel.setBorder(null);
-        btnDel.setBorderPainted(false);
-        btnDel.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDelActionPerformed(evt);
-            }
-        });
 
         btnSave.setBackground(new java.awt.Color(0, 51, 255));
         btnSave.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
@@ -64,7 +76,7 @@ public class UpdateScore extends javax.swing.JFrame {
             }
         });
 
-        tblCourses.setModel(new javax.swing.table.DefaultTableModel(
+        tblStudent.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -72,11 +84,16 @@ public class UpdateScore extends javax.swing.JFrame {
                 "MÃ SINH VIÊN", "TÊN SINH VIÊN", "EMAIL", "ĐIỂM"
             }
         ));
-        tblCourses.setShowGrid(true);
-        jScrollPane1.setViewportView(tblCourses);
+        tblStudent.setShowGrid(true);
+        tblStudent.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblStudentMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tblStudent);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 28)); // NOI18N
-        jLabel1.setText("Cập nhật học phần giảng dạy");
+        jLabel1.setText("Cập nhật điểm học phần");
 
         btnExit.setBackground(new java.awt.Color(255, 0, 51));
         btnExit.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
@@ -91,9 +108,14 @@ public class UpdateScore extends javax.swing.JFrame {
         });
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
-        jLabel2.setText("Tên Học Phần");
+        jLabel2.setText("Tên học phần:");
 
         cboCourses.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        cboCourses.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboCoursesActionPerformed(evt);
+            }
+        });
 
         btnCancel.setBackground(new java.awt.Color(0, 51, 255));
         btnCancel.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
@@ -119,114 +141,129 @@ public class UpdateScore extends javax.swing.JFrame {
             }
         });
 
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        jLabel3.setText("Tên:");
+
+        txtName.setEditable(false);
+        txtName.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        jLabel4.setText("MSSV:");
+
+        txtCode.setEditable(false);
+        txtCode.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        jLabel5.setText("Điểm:");
+
+        txtScore.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(37, 37, 37)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(37, 37, 37)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addComponent(btnUpd, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(73, 73, 73)
+                            .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(75, 75, 75)
+                            .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 678, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel1)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel3))
                                 .addGap(18, 18, 18)
-                                .addComponent(cboCourses, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnUpd, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnDel, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane1)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(137, 137, 137)
-                        .addComponent(jLabel1)))
-                .addContainerGap(38, Short.MAX_VALUE))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(cboCourses, 0, 179, Short.MAX_VALUE)
+                                    .addComponent(txtName))
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel4)
+                                .addGap(26, 26, 26)
+                                .addComponent(txtCode, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel5)
+                        .addGap(26, 26, 26)
+                        .addComponent(txtScore, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(37, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(30, 30, 30)
                 .addComponent(jLabel1)
-                .addGap(31, 31, 31)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(cboCourses, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel5)
+                        .addComponent(txtScore, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel4)
+                        .addComponent(txtCode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel3)
+                        .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(27, 27, 27)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(btnUpd, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnUpd, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnDel, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(22, Short.MAX_VALUE))
+                        .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnDelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelActionPerformed
-        // TODO add your handling code here:
-        DataModel md = new DataModel();
-        int rowIdx = this.tblCourses.getSelectedRow();
-        if(rowIdx == -1) {
-            JOptionPane.showMessageDialog(rootPane, "Vui lòng chọn dòng cần xóa!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
-        }else {
-            String maMon = this.tblCourses.getModel().getValueAt(rowIdx, 0).toString();
-            int result = md.deleteCourse(maMon, this.user[0]);
-            if(result == 1) {
-                ArrayList<String[]> coursesOfUser = md.getCouresOfUser(this.user[0]);
-                DefaultTableModel table = (DefaultTableModel) this.tblCourses.getModel();
-                while(table.getRowCount() > 0) {
-                    table.removeRow(0);
-                }
-                for(String[] value : coursesOfUser) {
-                    table.addRow(new Object[]{
-                        value[0], value[1], value[2]
-                    });
-                }
-                JOptionPane.showMessageDialog(rootPane, "Xóa thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
-            }else {
-                JOptionPane.showMessageDialog(rootPane, "Xóa thất bại!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
-            }
-        }
-    }//GEN-LAST:event_btnDelActionPerformed
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         // TODO add your handling code here:
+        stateOfEnabled(false);
         DataModel md = new DataModel();
-        String maMon = "";
+        String mamon = "";
         for(String[] value : this.courses) {
-            if(value[1].equals(this.cboCourses.getSelectedItem().toString()))
-            maMon = value[0];
+            if(value[1].equals(this.cboCourses.getSelectedItem().toString())){
+                mamon = value[0];
+            }
         }
-        int result = md.updateCourse(maMon, this.user[0]);
-        if(result == 1) {
-            ArrayList<String[]> coursesOfUser = md.getCouresOfUser(this.user[0]);
-            DefaultTableModel table = (DefaultTableModel) this.tblCourses.getModel();
+        int result =  md.updateScore(mamon, this.txtCode.getText(), this.txtScore.getText());
+        if(result == 0) {
+            JOptionPane.showMessageDialog(rootPane, "Cập nhật tbất bại!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+        }else {
+            JOptionPane.showMessageDialog(rootPane, "Cập nhật thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+            ArrayList<String[]> students = md.getScore(mamon);
+            DefaultTableModel table = (DefaultTableModel) this.tblStudent.getModel();
             while(table.getRowCount() > 0) {
                 table.removeRow(0);
             }
-            for(String[] value : coursesOfUser) {
+            for(int i = 0 ; i < students.size(); i++) {
                 table.addRow(new Object[]{
-                    value[0], value[1], value[2]
+                    students.get(i)[0], 
+                    students.get(i)[1], 
+                    students.get(i)[2], 
+                    students.get(i)[3],
                 });
-            }
-            JOptionPane.showMessageDialog(rootPane, "Thêm thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
-        }else {
-            JOptionPane.showMessageDialog(rootPane, "Thêm thất bại!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+            }   
         }
-        stateOfEnabled(false);
-
+        this.txtName.setText("");
+        this.txtCode.setText("");
+        this.txtScore.setText("");
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
@@ -243,8 +280,59 @@ public class UpdateScore extends javax.swing.JFrame {
     private void btnUpdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdActionPerformed
         // TODO add your handling code here:
         stateOfEnabled(true);
+        int rowIdx = 0;
+        String mssv = this.tblStudent.getModel().getValueAt(rowIdx, 0).toString();
+        String ten = this.tblStudent.getModel().getValueAt(rowIdx, 1).toString();
+        String diem = this.tblStudent.getModel().getValueAt(rowIdx, 3).toString();
+        this.txtName.setText(ten);
+        this.txtCode.setText(mssv);
+        this.txtScore.setText(diem);
     }//GEN-LAST:event_btnUpdActionPerformed
 
+    private void cboCoursesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboCoursesActionPerformed
+        // TODO add your handling code here:
+        DataModel md = new DataModel();
+        ArrayList<String[]> courses = md.getCouresOfUser(this.user[0]);
+        String tenmon = this.cboCourses.getSelectedItem().toString();
+        String mamon = "";
+        for(int i = 0 ; i < courses.size(); i++) {
+            if(tenmon.equals(courses.get(i)[1])){
+                mamon = courses.get(i)[0];
+            }
+        }
+        ArrayList<String[]> students = md.getScore(mamon);
+        DefaultTableModel table = (DefaultTableModel) this.tblStudent.getModel();
+        while(table.getRowCount() > 0) {
+            table.removeRow(0);
+        }
+        for(int i = 0 ; i < students.size(); i++) {
+            table.addRow(new Object[]{
+                students.get(i)[0], 
+                students.get(i)[1], 
+                students.get(i)[2], 
+                students.get(i)[3],
+            });
+        }   
+    }//GEN-LAST:event_cboCoursesActionPerformed
+
+    private void tblStudentMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblStudentMouseClicked
+        // TODO add your handling code here:
+        DataModel md = new DataModel();
+        int rowIdx = this.tblStudent.getSelectedRow();
+        String mssv = this.tblStudent.getModel().getValueAt(rowIdx, 0).toString();
+        String ten = this.tblStudent.getModel().getValueAt(rowIdx, 1).toString();
+        String diem = this.tblStudent.getModel().getValueAt(rowIdx, 3).toString();
+        this.txtName.setText(ten);
+        this.txtCode.setText(mssv);
+        this.txtScore.setText(diem);
+    }//GEN-LAST:event_tblStudentMouseClicked
+
+    private void stateOfEnabled(boolean t) {
+        this.btnCancel.setEnabled(t);
+        this.btnSave.setEnabled(t);
+        this.btnUpd.setEnabled(!t);
+        this.txtScore.setEnabled(t);
+    } 
     /**
      * @param args the command line arguments
      */
@@ -282,14 +370,20 @@ public class UpdateScore extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancel;
-    private javax.swing.JButton btnDel;
     private javax.swing.JButton btnExit;
     private javax.swing.JButton btnSave;
     private javax.swing.JButton btnUpd;
     private javax.swing.JComboBox<String> cboCourses;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tblCourses;
+    private javax.swing.JTable tblStudent;
+    private javax.swing.JTextField txtCode;
+    private javax.swing.JTextField txtName;
+    private javax.swing.JTextField txtScore;
     // End of variables declaration//GEN-END:variables
+
 }
